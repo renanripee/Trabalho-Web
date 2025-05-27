@@ -1,0 +1,31 @@
+<!-- templates/eventos/navbar.html -->
+{% load static %}
+
+{% block content %}
+<nav class="navbar navbar-expand-lg even-navbar">
+    <div class="container-fluid">
+        <a class="logo ms-3" href="{% url 'home' %}">evenapp</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link ms-4" href="">EVENTOS</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link ms-4" href="">MEU PERFIL</a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="ms-auto me-3">
+            <button type="submit" class="btn p-0">
+                <img src="{% static 'img/logout.png' %}" alt="Sair" width="25" height="25">
+            </button>
+        </div>
+
+    </div>
+</nav>
+{% endblock %}
