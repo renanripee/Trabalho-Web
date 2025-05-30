@@ -1,0 +1,32 @@
+<!-- templates/eventos/index.html -->
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/details.css' %}">
+{% endblock %}
+
+{% block content %}
+
+
+<div class="container event-info">
+    <div class="row">
+        <div class="col-7 details">
+            <h1 class="title pt-5">{{evento.titulo}}</h1>
+            <div class="info">
+                <p class="event-date"><b>DATA:</b> {{evento.data}}</p>
+                <p class="event-local"><b>LOCAL:</b> {{evento.local}}</p>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt amet, fuga, reiciendis iusto
+                    necessitatibus dolore nihil minima et nemo id blanditiis cupiditate molestias magnam voluptas
+                    explicabo, culpa cum ipsum excepturi.</p>
+                <button type="button" class="subscribe btn px-5 mt-3">Inscrever-se</button>
+            </div>
+        </div>
+        <div class="col-5 image">
+            <img src="{% static 'img/details.png' %}" alt="Imagem de evento">
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

@@ -1,0 +1,16 @@
+<!-- templates/eventos/index.html -->
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/event.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="card mt-4 mx-4">
+    <div class="mx-3">
+        <h3 class="event event-title">{{evento.titulo}}</h3>
+        <h4 class="event event-details">{{evento.local}}</h4>
+        <h4 class="event event-details">{{evento.data}}</h4>
+    </div>
+</div>
+{% endblock %}

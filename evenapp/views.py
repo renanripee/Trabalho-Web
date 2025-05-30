@@ -1,6 +1,10 @@
-from django.template import loader
-from django.http import HttpResponse
+from django.shortcuts import render, get_object_or_404
+from .models import Evento
 
 def home(request):
-    template = loader.get_template('events\home.html')
-    return HttpResponse(template.render())
+    eventos = Evento.objects.all()
+    return render(request, 'events/home.html', {'eventos': eventos})
+
+def details(request, id):
+    evento = get_object_or_404(Evento, id=id)
+    return render(request, 'events/details.html', {'evento': evento})

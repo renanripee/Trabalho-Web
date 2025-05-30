@@ -1,0 +1,47 @@
+.details {
+    font-family: 'Roboto Condensed';
+    display: flex;
+    flex-direction: column;
+}
+
+h1.title {
+    font-weight: bold;
+    text-transform: uppercase;
+
+    color: #FF4407 !important;
+    margin-left: 4rem;
+}
+
+.event-info {
+    max-width: 100%;
+    height: 90vh;
+    margin: 0;
+    padding: 0;
+}
+
+.row {
+    height: 90vh;
+}
+
+.info {
+    margin: 0 4rem;
+}
+
+.event-date {
+    margin: 2rem 0 0 0;
+}
+
+button.subscribe {
+    background-color: #E33E07;
+    color: white;
+    font-family: 'Roboto Condensed', sans-serif !important;
+}
+
+.image {
+    display: flex;
+    justify-content: end;
+}
+
+.image img {
+    height: 90vh;
+}

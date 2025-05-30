@@ -1,5 +1,7 @@
 body {
     font-family: 'Luckiest Guy';
+    height: 100%;
+    background-color: #FFF5E5;
 }
 
 .container-fluid {
