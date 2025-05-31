@@ -1,0 +1,43 @@
+.content {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-wrap: wrap;
+
+    height: 92vh;
+}
+
+.title {
+    color: #FF4407;
+    font-family: 'Luckiest Guy';
+    font-size: 2.5rem;
+}
+
+.event-card {
+    width: 35%;
+    height: auto;
+    
+    background-color: white;
+    font-family: 'Roboto';
+    font-size: 0.8rem;
+
+    box-shadow: 5px 5px 4px 0 rgba(0, 0, 0, 0.25);
+    border: solid 1px #E2E2E2;
+    border-radius: 9px;
+}
+
+.form-control, .save-button {
+    font-size: 0.8rem;
+}
+
+
+.samefield {
+    width: 48%;
+}
+
+.save-button {
+    background-color: #FF4407;
+    color: white;
+    width: 22%;
+    margin: 1.5rem 0 2.5rem 0;
+}

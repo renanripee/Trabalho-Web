@@ -14,3 +14,11 @@ h1.title {
     color: #FF4407 !important;
     margin-left: 3.3rem;
 }
+
+.btn-add {
+    position: fixed;
+    bottom: 30px;
+    right: 40px;
+    z-index: 1000;
+    cursor: pointer;
+}

@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import path # type: ignore
 from . import views
 
 urlpatterns = [
@@ -6,5 +6,5 @@ urlpatterns = [
     path('eventos/<int:id>/', views.details, name='details'),
     path('', views.login, name='login'),
     path('user/create', views.createUser, name='createUser'),
-
+    path('event/create', views.createEvent, name='createEvent'),
 ]

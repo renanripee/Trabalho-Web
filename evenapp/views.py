@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404 # type: ignore
 from .models import Evento
 
 def home(request):
@@ -14,3 +14,6 @@ def login(request):
 
 def createUser(request):
     return render(request, 'users/create-user.html')
+
+def createEvent(request):
+    return render(request, 'events/create-event.html')
