@@ -58,6 +58,7 @@ class Evento(models.Model):
     titulo = models.CharField(max_length=255)
     data = models.DateTimeField()
     local = models.CharField(max_length=255)
+    descricao = models.TextField(blank=True)
     organizador = models.ForeignKey(
         Usuario,
         on_delete=models.CASCADE,

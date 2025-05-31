@@ -41,3 +41,8 @@
     width: 22%;
     margin: 1.5rem 0 2.5rem 0;
 }
+
+.save-button:hover {
+    background-color: #b6350b;
+    color: white;
+}
