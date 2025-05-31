@@ -1,0 +1,38 @@
+.buttons {
+    position: absolute;
+    bottom: 5px;
+    right: 10px;
+    z-index: 1000;
+    cursor: pointer;
+}
+
+div.card {
+    width: 23rem;
+    height: 5.5rem;
+
+    display: flex;
+    justify-content: center;
+
+    box-shadow: 5px 5px 4px 0 rgba(0, 0, 0, 0.25);
+    border-color: #E2E2E2;
+    border-width: 1px;
+}
+
+h3, h4 {
+    font-family: 'Roboto Condensed';
+}
+
+.subscriber-title {
+    margin: 0;
+    font-size: 1.5rem;
+    font-style: italic;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: #332E2C;
+}
+
+.subscriber-details {
+    margin: 0;
+    font-size: 1rem;
+    color: #805344;
+}

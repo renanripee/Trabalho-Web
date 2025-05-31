@@ -1,6 +1,6 @@
-from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
-from django.db import models
-from django.utils import timezone
+from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin # type: ignore
+from django.db import models # type: ignore
+from django.utils import timezone # type: ignore
 
 class UsuarioManager(BaseUserManager):
     def create_user(self, email, password=None, **extra_fields):

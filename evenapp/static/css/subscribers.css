@@ -1,0 +1,16 @@
+.content {
+    display: flex;
+    flex-direction: column;
+}
+
+.subscribers {
+    width: 94.3%;
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 auto;
+}
+
+h1.title {
+    color: #FF4407 !important;
+    margin-left: 3.3rem;
+}

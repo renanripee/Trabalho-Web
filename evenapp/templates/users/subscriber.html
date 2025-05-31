@@ -1,0 +1,18 @@
+{% load static %}
+{% load custom_filters %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/subscriber.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="card mt-4 mx-3">
+    <div class="mx-3">
+        <h3 class="subscriber subscriber-title">{{subscriber.first_name}} {{subscriber.last_name}}</h3>
+        <div class="mt-2" style="display: flex; justify-content: space-between;">
+            <h4 class="subscriber subscriber-details">{{subscriber.email}}</h4>
+            <h4 class="subscriber subscriber-details">{{subscriber.telefone}}</h4>
+        </div>
+    </div>
+</div>
+{% endblock %}
