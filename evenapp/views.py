@@ -8,3 +8,6 @@ def home(request):
 def details(request, id):
     evento = get_object_or_404(Evento, id=id)
     return render(request, 'events/details.html', {'evento': evento})
+
+def login(request):
+    return render(request, 'login.html')
