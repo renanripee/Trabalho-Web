@@ -11,3 +11,6 @@ def details(request, id):
 
 def login(request):
     return render(request, 'login.html')
+
+def createUser(request):
+    return render(request, 'users/create-user.html')

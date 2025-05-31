@@ -1,0 +1,53 @@
+<!-- templates/eventos/index.html -->
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/create-user.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="content">
+
+    <div class="user-card">
+        <h1 class="title ms-4 py-3">Usuário</h1>
+    
+        <div class="field email-field mx-4">
+            <p class="ms-1 my-0 mb-1">Email</p>
+            <input type="text" class="form-control" placeholder="Digite algo">
+        </div>
+        <div style="display: flex; justify-content: space-between;" class="mx-4">
+            <div class="samefield field mt-2">
+                <p class="ms-1 my-0 mb-1">Nome</p>
+                <input type="text" class="form-control" placeholder="Digite algo">
+            </div>
+            <div class="samefield field mt-2">
+                <p class="ms-1 my-0 mb-1">Sobrenome</p>
+                <input type="text" class="form-control" placeholder="Digite algo">
+            </div>
+        </div>
+        <div style="display: flex; justify-content: space-between;" class="mx-4">
+    
+            <div class="samefield field mt-2">
+                <p class="ms-1 my-0 mb-1">Telefone</p>
+                <input type="text" class="form-control" placeholder="Digite algo">
+            </div>
+            <div class="samefield field mt-2">
+                <p class="ms-1 my-0 mb-1">Tipo de Usuário</p>
+                <input type="text" class="form-control" placeholder="Digite algo">
+            </div>
+        </div>
+        <div class="field mt-2  mx-4">
+            <p class="ms-1 my-0 mb-1">Senha</p>
+            <input type="text" class="form-control" placeholder="Digite algo">
+        </div>
+        <div class="field mt-2  mx-4">
+            <p class="ms-1 my-0 mb-1">Confirmação de Senha</p>
+            <input type="text" class="form-control" placeholder="Digite algo">
+        </div>
+        <button type="button" class="save-button btn  ms-4">Salvar</button>
+    </div>
+
+</div>
+
+{% endblock %}

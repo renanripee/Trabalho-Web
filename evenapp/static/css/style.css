@@ -1,31 +1,9 @@
 body {
     font-family: 'Luckiest Guy';
-    height: 100%;
     background-color: #FFF5E5;
+    height: 100vh;
 }
 
 .container-fluid {
     padding: 0;
-}
-
-.logo, .nav-link {
-    color: white;
-}
-
-.logo {
-    text-decoration: none;
-    font-size: 1.5rem;
-}
-
-.nav-link {
-    font-family: 'Roboto Condensed';
-}
-
-.nav-link:hover {
-    color: white !important;
-    text-decoration: underline;
-}
-
-.even-navbar {
-    background-color: #332E2C;
 }
