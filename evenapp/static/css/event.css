@@ -1,3 +1,11 @@
+.buttons {
+    position: absolute;
+    bottom: 5px;
+    right: 10px;
+    z-index: 1000;
+    cursor: pointer;
+}
+
 div.card {
     width: 23rem;
     height: 5.5rem;

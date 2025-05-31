@@ -1,4 +1,3 @@
-<!-- templates/eventos/index.html -->
 {% load static %}
 {% load custom_filters %}
 
@@ -7,13 +6,21 @@
 {% endblock %}
 
 {% block content %}
-<a href="{% url 'details' evento.id %}" style="text-decoration: none; color: inherit;">
-    <div class="card mt-4 mx-3">
-        <div class="mx-3">
+<div class="card mt-4 mx-3">
+    <div class="mx-3">
+        <a href="{% url 'details' evento.id %}" style="text-decoration: none; color: inherit;">
             <h3 class="event event-title">{{evento.titulo}}</h3>
-            <h4 class="event event-details">{{evento.local}}</h4>
-            <h4 class="event event-details">{{evento.data|format_date}}</h4>
-        </div>
+        </a>
+        <h4 class="event event-details">{{evento.local}}</h4>
+        <h4 class="event event-details">{{evento.data|format_date}}</h4>
     </div>
-</a>
+    <div class="buttons">
+        <a href="{% url 'createEvent' %}" class="btn-edit me-2" style="text-decoration: none; color: inherit;">
+            <img src="{% static 'img/edit.png' %}" alt="Editar" width="20" height="20">
+        </a>
+        <a href="{% url 'createEvent' %}" class="btn-delete" style="text-decoration: none; color: inherit;">
+            <img src="{% static 'img/delete.png' %}" alt="Excluir" width="20" height="20">
+        </a>
+    </div>
+</div>
 {% endblock %}
