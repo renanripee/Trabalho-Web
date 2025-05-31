@@ -1,16 +1,19 @@
 <!-- templates/eventos/index.html -->
 {% load static %}
+{% load custom_filters %}
 
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'css/event.css' %}">
 {% endblock %}
 
 {% block content %}
-<div class="card mt-4 mx-4">
-    <div class="mx-3">
-        <h3 class="event event-title">{{evento.titulo}}</h3>
-        <h4 class="event event-details">{{evento.local}}</h4>
-        <h4 class="event event-details">{{evento.data}}</h4>
+<a href="{% url 'details' evento.id %}" style="text-decoration: none; color: inherit;">
+    <div class="card mt-4 mx-3">
+        <div class="mx-3">
+            <h3 class="event event-title">{{evento.titulo}}</h3>
+            <h4 class="event event-details">{{evento.local}}</h4>
+            <h4 class="event event-details">{{evento.data|format_date}}</h4>
+        </div>
     </div>
-</div>
+</a>
 {% endblock %}
