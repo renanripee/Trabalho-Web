@@ -15,29 +15,52 @@
 <div class="container-fluid p-0 m-0">
     <div class="row h-100">
         <div class="col-6 p-0">
-            <img src="{% static 'img/login.png' %}"  class="w-100 h-100 object-fit-cover" alt="Imagem de Login">
+            <img src="{% static 'img/login.png' %}" class="w-100 h-100 object-fit-cover" alt="Imagem de Login">
         </div>
         <div class="login col-6">
             <div class="login-card">
-                <h1 class="login-title">EVENAPP</h1>
-                <h3 class="login-subtitle">onde seus eventos favoritos começam</h1>
+                <form method="POST" action="{% url 'login' %}" class="mx-5">
+                    {% csrf_token %}
+                    <h1 class="login-title">EVENAPP</h1>
+                    <h3 class="login-subtitle">onde seus eventos favoritos começam</h1>
 
-                <div class="field email-field">
-                    <p class="ms-1 my-0 mb-1">Email</p>
-                    <input type="text" class="form-control" placeholder="Digite algo">
-                </div>
-                <div class="field mt-2">
-                    <p class="ms-1 my-0 mb-1">Senha</p>
-                    <input type="text" class="form-control" placeholder="Digite algo">
-                </div>
-                <button type="button" class="enter-button btn">Entrar</button>
-                <div class="field mt-2 mb-5">
-                    <a class="signin" href="">Cadastre-se</a>
-                </div>
+                        <div class="field email-field">
+                            <p class="ms-1 my-0 mb-1">Email</p>
+                            <input name="email" type="email" class="form-control">
+                        </div>
+                        <div class="field mt-2">
+                            <p class="ms-1 my-0 mb-1">Senha</p>
+                            <input name="senha" type="password" class="form-control">
+                        </div>
+                        <button type="submit" class="enter-button btn">Entrar</button>
+                        <div class="field mt-2 mb-5">
+                            <a class="signin" href="{% url 'createUser' %}">Cadastre-se</a>
+                        </div>
+
+                        {% if messages %}
+                        <div id="alert-container" class="position-fixed top-25 start-50 translate-middle z-3"
+                        style="font-family: 'Roboto Condensed';">
+                            {% for msg in messages %}
+                            <div class="alert alert-danger text-center" role="alert">
+                                {{ msg }}
+                            </div>
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+                </form>
             </div>
         </div>
     </div>
 </div>
+
+<script>
+  setTimeout(() => {
+    const alert = document.getElementById('alert-container');
+    if (alert) {
+      alert.remove();
+    }
+  }, 3000);
+</script>
 
 
 {% endblock %}

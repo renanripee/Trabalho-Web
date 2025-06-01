@@ -16,52 +16,62 @@
             {% csrf_token %}
             <div class="field email-field mx-4">
                 <p class="ms-1 my-0 mb-1">Email</p>
-                <input name="email" type="email" class="form-control" required>
+                <input name="email" type="email" class="form-control" value="{{ usuario.email|default_if_none:'' }}"
+                    required>
             </div>
             <div style="display: flex; justify-content: space-between;" class="mx-4">
                 <div class="samefield field mt-2">
                     <p class="ms-1 my-0 mb-1">Nome</p>
-                    <input name="first_name" type="text" class="form-control" required>
+                    <input name="first_name" type="text" class="form-control"
+                        value="{{ usuario.first_name|default_if_none:'' }}" required>
                 </div>
                 <div class="samefield field mt-2">
                     <p class="ms-1 my-0 mb-1">Sobrenome</p>
-                    <input name="last_name" type="text" class="form-control" required>
+                    <input name="last_name" type="text" class="form-control"
+                        value="{{ usuario.last_name|default_if_none:'' }}" required>
                 </div>
             </div>
             <div style="display: flex; justify-content: space-between;" class="mx-4">
 
                 <div class="samefield field mt-2">
                     <p class="ms-1 my-0 mb-1">Telefone</p>
-                    <input name="telefone" type="text" class="form-control" required>
+                    <input name="telefone" type="text" class="form-control"
+                        value="{{ usuario.telefone|default_if_none:'' }}" required>
                 </div>
+                {% if user.is_authenticated and user.tipo == 'admin' %}
                 <div class="samefield field mt-2">
                     <p class="ms-1 my-0 mb-1">Tipo de Usuário</p>
-                    <select name="tipo" class="form-control" required>
+                    <select name="tipo" class="form-control" value="{{ usuario.tipo|default_if_none:'' }}" required>
                         <option value="">Selecione o tipo</option>
                         <option value="admin">Administrador</option>
                         <option value="criador">Criador de Evento</option>
                         <option value="normal">Usuário Normal</option>
                     </select>
                 </div>
+                {% endif %}
             </div>
             <div class="field mt-2  mx-4">
                 <p class="ms-1 my-0 mb-1">Senha</p>
-                <input name="senha" type="password" class="form-control" required>
+                <input name="senha" type="password" class="form-control" value="{{ usuario.senha|default_if_none:'' }}"
+                    required>
             </div>
             <div class="field mt-2  mx-4">
                 <p class="ms-1 my-0 mb-1">Confirmação de Senha</p>
-                <input name="confirmacao_senha" type="password" class="form-control" required>
+                <input name="confirmacao_senha" type="password" class="form-control"
+                    value="{{ usuario.confirmacao_senha|default_if_none:'' }}" required>
             </div>
-            <button type="submit" class="save-button btn  ms-4">Salvar</button>
+            <button type="submit" class="save-button btn  ms-4">
+                {% if modo_edicao %}Salvar{% else %}Criar Conta{% endif %}
+            </button>
         </form>
     </div>
 
 </div>
 
 <script>
-  $(document).ready(function(){
-    $('input[name="telefone"]').inputmask('(99) 99999-9999');
-  });
+    $(document).ready(function () {
+        $('input[name="telefone"]').inputmask('(99) 99999-9999');
+    });
 </script>
 
 {% endblock %}

@@ -17,7 +17,9 @@ body {
     border: 1px #E2E2E2 solid;
 
     font-family: 'Luckiest Guy';
+}
 
+form {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -27,10 +29,12 @@ body {
     font-size: 2.5rem;
     margin: 1rem 0 0.4rem 0;
     color: #FF4407;
+    text-align: center;
 }
 
 .login-subtitle {
     font-size: 0.8rem;
+    text-align: center;
     color: #FF9B79;
 }
 
@@ -56,6 +60,11 @@ body {
     font-size: 0.8rem;
     
     background-color: #E33E07;
+    color: #FFFFFF;
+}
+
+.enter-button:hover {
+    background-color: #b6350b;
     color: #FFFFFF;
 }
 

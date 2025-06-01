@@ -16,9 +16,11 @@
         <h3 style="font-family: 'Roboto';">Nenhum evento disponível.</h3>
         {% endfor %}
     </div>
+    {% if user.is_authenticated and user.tipo == 'criador' %}
     <a href="{% url 'createEvent' %}" class="btn-add">
         <img src="{% static 'img/addbutton.png' %}" alt="Adicionar" width="45" height="50">
     </a>
+    {% endif %}
 </div>
 
 {% endblock %}

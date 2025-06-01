@@ -18,15 +18,15 @@
                     <a class="nav-link ms-4" href="{% url 'home' %}">EVENTOS</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link ms-4" href="">MEU PERFIL</a>
+                    <a class="nav-link ms-4" href="{% url 'editUser' %}">MEU PERFIL</a>
                 </li>
             </ul>
         </div>
 
         <div class="ms-auto me-3">
-            <button type="submit" class="btn p-0">
+            <a href="{% url 'logout' %}" >
                 <img src="{% static 'img/logout.png' %}" alt="Sair" width="25" height="25">
-            </button>
+            </a>
         </div>
 
     </div>

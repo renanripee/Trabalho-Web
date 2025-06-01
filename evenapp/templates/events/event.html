@@ -14,6 +14,7 @@
         <h4 class="event event-details">{{evento.local}}</h4>
         <h4 class="event event-details">{{evento.data|format_date}}</h4>
     </div>
+    {% if user.is_authenticated and user.tipo == 'criador' %}
     <div class="buttons">
         <a href="{% url 'createEvent' %}" class="btn-edit me-2" style="text-decoration: none; color: inherit;">
             <img src="{% static 'img/edit.png' %}" alt="Editar" width="20" height="20">
@@ -22,5 +23,6 @@
             <img src="{% static 'img/delete.png' %}" alt="Excluir" width="20" height="20">
         </a>
     </div>
+    {% endif %}
 </div>
 {% endblock %}
