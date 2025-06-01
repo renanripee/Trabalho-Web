@@ -4,6 +4,7 @@
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'css/event.css' %}">
 {% endblock %}
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
 {% block content %}
 <div class="card mt-4 mx-3">
@@ -16,13 +17,31 @@
     </div>
     {% if user.is_authenticated and user.tipo == 'criador' %}
     <div class="buttons">
-        <a href="{% url 'createEvent' %}" class="btn-edit me-2" style="text-decoration: none; color: inherit;">
+        <a href="{% url 'editEvent' evento.id %}" class="btn-edit me-2" style="text-decoration: none; color: inherit;">
             <img src="{% static 'img/edit.png' %}" alt="Editar" width="20" height="20">
         </a>
-        <a href="{% url 'createEvent' %}" class="btn-delete" style="text-decoration: none; color: inherit;">
+        <a class="btn-delete" style="text-decoration: none; color: inherit;"
+            data-bs-toggle="modal" data-bs-target="#confirmModal{{ evento.id }}">
             <img src="{% static 'img/delete.png' %}" alt="Excluir" width="20" height="20">
         </a>
     </div>
     {% endif %}
 </div>
 {% endblock %}
+
+<div class="modal fade" id="confirmModal{{ evento.id }}" tabindex="-1" aria-labelledby="confirmModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content text-center p-3">
+      <img src="{% static 'img/attetion.png' %}" alt="Atenção" style="width: 60px; margin: 10px auto;">
+      <h4 class="mb-2">ATENÇÃO!</h4>
+      <p>Tem certeza que deseja confirmar a ação?</p>
+      <form method="POST" action="{% url 'deleteEvent' evento.id %}">
+        {% csrf_token %}
+        <div class="d-flex justify-content-center gap-2">
+          <button type="submit" class="confirmButton btn">Confirmar</button>
+          <button type="button" class="cancelButton btn" data-bs-dismiss="modal">Cancelar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

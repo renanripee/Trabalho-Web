@@ -81,7 +81,9 @@ def createUser(request):
         except Exception as e:
             return render(request, 'users/create-user.html', {'erro': str(e)})
 
-    return render(request, 'users/create-user.html')
+    return render(request, 'users/create-user.html', {
+        'modo_edicao': False
+    })
 
 def editUser(request):
     usuario = request.user
@@ -119,4 +121,38 @@ def createEvent(request):
 
         return redirect('home')
 
-    return render(request, 'events/create-event.html')
+    return render(request, 'events/create-event.html', {
+        'modo_edicao': False
+    })
+
+@login_required
+def editEvent(request, id):
+    evento = get_object_or_404(Evento, id=id)
+
+    if request.method == 'POST':
+        evento.titulo = request.POST.get('titulo')
+        evento.data = request.POST.get('data')
+        evento.local = request.POST.get('local')
+        evento.descricao = request.POST.get('descricao')
+        evento.save()
+        return redirect('details', id=evento.id)
+
+    return render(request, 'events/create-event.html', {
+        'evento': evento,
+        'modo_edicao': True
+    })
+
+@login_required
+def deleteEvent(request, id):
+    evento = get_object_or_404(Evento, id=id)
+
+    if evento.organizador != request.user:
+        messages.error(request, "Você não tem permissão para deletar este evento.")
+        return redirect('home')
+
+    if request.method == 'POST':
+        evento.delete()
+        messages.success(request, "Evento deletado com sucesso.")
+        return redirect('home')
+
+    return redirect('details', id=id)

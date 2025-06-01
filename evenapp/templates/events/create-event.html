@@ -7,7 +7,7 @@
 {% endblock %}
 
 {% block content %}
-<form method="POST" action="{% url 'createEvent' %}">
+<form method="POST" action="{% if modo_edicao %}{% url 'editEvent' evento.id %}{% else %}{% url 'createEvent' %}{% endif %}">
     {% csrf_token %}
     <div class="content">
 
@@ -16,21 +16,23 @@
 
             <div class="field mx-4">
                 <p class="ms-1 my-0 mb-1">Título</p>
-                <input name="titulo" type="text" class="form-control" required>
+                <input name="titulo" type="text" class="form-control" value="{{ evento.titulo|default:'' }}" required>
             </div>
             <div style="display: flex; justify-content: space-between;" class="mx-4">
                 <div class="samefield field mt-2">
                     <p class="ms-1 my-0 mb-1">Data e Hora</p>
-                    <input name="data" type="datetime-local" class="form-control" style="color: rgb(0, 0, 0, 0.7);">
+                    <input name="data" type="datetime-local" class="form-control" style="color: rgb(0, 0, 0, 0.7);"
+                    value="{{ evento.data|date:'Y-m-d\\TH:i' }}" required>
                 </div>
                 <div class="samefield field mt-2">
                     <p class="ms-1 my-0 mb-1">Local</p>
-                    <input name="local" type="text" class="form-control" required>
+                    <input name="local" type="text" class="form-control" 
+                    value="{{ evento.local|default:'' }}" required>
                 </div>
             </div>
             <div class="field mt-2  mx-4">
                 <p class="ms-1 my-0 mb-1">Descrição</p>
-                <textarea name="descricao" type="text" class="form-control" style="height: 10vh;" required></textarea>
+                <textarea name="descricao" type="text" class="form-control" style="height: 10vh;" required>{{ evento.descricao|default:'' }}</textarea>
             </div>
             <button type="submit" class="save-button btn  ms-4">Salvar</button>
         </div>

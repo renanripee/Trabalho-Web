@@ -36,3 +36,31 @@ h3, h4 {
     font-size: 1rem;
     color: #805344;
 }
+
+.modal {
+    font-family: 'Roboto Condensed';
+}
+
+.modal-content h4 {
+    font-weight: bold;
+}
+
+.modal-content p {
+    color: #805344;
+}
+
+.confirmButton {
+    background-color: #E33E07;
+    color: white;
+}
+
+.confirmButton:hover {
+    background-color: #b6350b;
+    color: white;
+}
+
+.cancelButton {
+    background-color: #FFF5E5;
+    color: #1E1E1E;
+    border: solid 1px #1E1E1E;
+}
