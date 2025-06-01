@@ -8,14 +8,12 @@ urlpatterns = [
     path('my-subscriptions', views.mysubscriptions, name='mysubscriptions'),
     path('my-events', views.myevents, name='myevents'),
     path('eventos/<int:id>/', views.details, name='details'),
-    path('subscribers', views.subscribers, name='subscribers'),
+    path('users', views.users, name='subscribers'),
     path('user/create', views.createUser, name='createUser'),
     path('user/edit', views.editUser, name='editUser'),
     path('event/create', views.createEvent, name='createEvent'),
     path('event/<int:id>/edit', views.editEvent, name='editEvent'),
     path('event/<int:id>/delete', views.deleteEvent, name='deleteEvent'),
     path('event/<int:id>/inscritos/', views.listSubscribers, name='listSubscribers'),
-    path('event/<int:id>/inscrever/', views.subscribe, name='subscribe'),
-
-
+    path('event/<int:id>/inscrever/', views.subscribe, name='subscribe')
 ]

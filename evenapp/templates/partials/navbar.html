@@ -7,7 +7,7 @@
 {% block content %}
 <nav class="even-navbar navbar navbar-expand-lg">
     <div class="container-fluid">
-        <a class="logo ms-3" href="{% url 'home' %}">evenapp</a>
+        <a class="logo ms-3" href="{% if user.is_authenticated %}{% url 'home' %}{% else %}{% url 'login' %}{% endif %}">evenapp</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -17,12 +17,13 @@
                 <li class="nav-item">
                     <a class="nav-link ms-4" href="{% url 'home' %}">EVENTOS</a>
                 </li>
-                {% if user.is_authenticated and user.tipo == 'normal' %}
+                {% if user.is_authenticated %}
+                {% if user.tipo == 'normal' %}
                 <li class="nav-item">
                     <a class="nav-link ms-4" href="{% url 'mysubscriptions' %}">MINHAS INSCRIÇÕES</a>
                 </li>
                 {% endif %}
-                {% if user.is_authenticated and user.tipo == 'criador' %}
+                {% if user.tipo == 'criador' or user.tipo == 'admin' %}
                 <li class="nav-item">
                     <a class="nav-link ms-4" href="{% url 'myevents' %}">MEUS EVENTOS</a>
                 </li>
@@ -30,14 +31,16 @@
                 <li class="nav-item">
                     <a class="nav-link ms-4" href="{% url 'editUser' %}">MEU PERFIL</a>
                 </li>
+                {% endif %}
             </ul>
         </div>
-
+        {% if user.is_authenticated %}
         <div class="ms-auto me-3">
             <a href="{% url 'logout' %}" >
                 <img src="{% static 'img/logout.png' %}" alt="Sair" width="25" height="25">
             </a>
         </div>
+        {% endif %}
 
     </div>
 </nav>

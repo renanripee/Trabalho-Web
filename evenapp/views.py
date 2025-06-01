@@ -23,20 +23,25 @@ def home(request):
     events = Evento.objects.all()
     return render(request, 'events/home.html', {
         'eventos': events,
-        'myevents': False
+        'tipo': 'Eventos'
     })
 
+@user_type_required('criador', 'admin')
 def myevents(request): 
     events = Evento.objects.filter(organizador=request.user)
     return render(request, 'events/home.html', {
         'eventos': events,
-        'myevents': True
+        'tipo': 'Meus Eventos'
     })
 
+@user_type_required('normal')
 def mysubscriptions(request):
     subscriptions = Inscricao.objects.filter(usuario=request.user)
     events = [subscription.evento for subscription in subscriptions ]
-    return render(request, 'events/home.html', {'eventos': events})
+    return render(request, 'events/home.html', {
+        'eventos': events,
+        'tipo': 'Minhas Inscrições'
+    })
 
 def details(request, id):
     evento = Evento.objects.get(id=id)
@@ -47,10 +52,13 @@ def details(request, id):
         'evento': evento,
         'inscrito': inscrito,
     })
-def subscribers(request):
+
+@user_type_required('admin')
+def users(request):
     subscribers = Usuario.objects.all()
     return render(request, 'events/subscribers.html', {'subscribers': subscribers})
 
+@user_type_required('criador', 'admin')
 def listSubscribers(request, id):
     evento = get_object_or_404(Evento, pk=id)
     subscriptions = Inscricao.objects.filter(evento=evento)
@@ -60,6 +68,7 @@ def listSubscribers(request, id):
         'subscribers': subscribers
     })
 
+@user_type_required('normal')
 def subscribe(request, id):
     if request.method == 'POST' and request.user.is_authenticated and request.user.tipo == 'normal':
         evento = get_object_or_404(Evento, pk=id)
@@ -99,7 +108,7 @@ def createUser(request):
         first_name = request.POST.get('first_name')
         last_name = request.POST.get('last_name')
         telefone = request.POST.get('telefone')
-        tipo = request.POST.get('tipo')
+        tipo = request.POST.get('tipo') or 'normal'
         senha = request.POST.get('senha')
         confirmacao = request.POST.get('confirmacao_senha')
 
@@ -124,6 +133,7 @@ def createUser(request):
         'modo_edicao': False
     })
 
+@login_required
 def editUser(request):
     usuario = request.user
 
@@ -140,7 +150,7 @@ def editUser(request):
     })
 
 
-@user_type_required('criador')
+@user_type_required('criador', 'admin')
 def createEvent(request):
     
     if request.method == 'POST':
@@ -164,7 +174,7 @@ def createEvent(request):
         'modo_edicao': False
     })
 
-@login_required
+@user_type_required('criador', 'admin')
 def editEvent(request, id):
     evento = get_object_or_404(Evento, id=id)
 
@@ -181,7 +191,7 @@ def editEvent(request, id):
         'modo_edicao': True
     })
 
-@login_required
+@user_type_required('criador', 'admin')
 def deleteEvent(request, id):
     evento = get_object_or_404(Evento, id=id)
 

@@ -34,6 +34,7 @@
                 <p class="event-date"><b>DATA:</b> {{evento.data}}</p>
                 <p class="event-local"><b>LOCAL:</b> {{evento.local}}</p>
                 <p>{{evento.descricao}}</p>
+                {% if user.is_authenticated %}
                 {% if user.tipo == 'normal' %}
                 {% if inscrito %}
                 <button class="subscribe btn btn-secondary px-5 mt-3" disabled>Inscrito</button>
@@ -47,6 +48,7 @@
                 {% else %}
                 <a href="{% url 'listSubscribers' evento.id %}" type="submit" class="subscribe btn px-5 mt-3">Ver
                     Inscrições</a>
+                {% endif %}
                 {% endif %}
             </div>
         </div>

@@ -7,6 +7,23 @@
 {% endblock %}
 
 {% block content %}
+
+{% if erro %}
+<div id="alert-container" class="position-fixed top-25 start-50 translate-middle z-3">
+    <div class="alert alert-danger text-center" role="alert" style="font-family: 'Roboto Condensed';">
+        {{ erro }}
+    </div>
+</div>
+<script>
+    setTimeout(() => {
+        const alert = document.getElementById('alert-container');
+        if (alert) {
+            alert.remove();
+        }
+    }, 3000);
+</script>
+{% endif %}
+
 <div class="content">
 
     <div class="user-card">
@@ -65,7 +82,6 @@
             </button>
         </form>
     </div>
-
 </div>
 
 <script>
