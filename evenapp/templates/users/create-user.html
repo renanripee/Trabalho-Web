@@ -11,41 +11,49 @@
 
     <div class="user-card">
         <h1 class="title ms-4 py-3">Usuário</h1>
-    
-        <div class="field email-field mx-4">
-            <p class="ms-1 my-0 mb-1">Email</p>
-            <input type="text" class="form-control" placeholder="Digite algo">
-        </div>
-        <div style="display: flex; justify-content: space-between;" class="mx-4">
-            <div class="samefield field mt-2">
-                <p class="ms-1 my-0 mb-1">Nome</p>
-                <input type="text" class="form-control" placeholder="Digite algo">
+
+        <form method="POST">
+            {% csrf_token %}
+            <div class="field email-field mx-4">
+                <p class="ms-1 my-0 mb-1">Email</p>
+                <input name="email" type="email" class="form-control" required>
             </div>
-            <div class="samefield field mt-2">
-                <p class="ms-1 my-0 mb-1">Sobrenome</p>
-                <input type="text" class="form-control" placeholder="Digite algo">
+            <div style="display: flex; justify-content: space-between;" class="mx-4">
+                <div class="samefield field mt-2">
+                    <p class="ms-1 my-0 mb-1">Nome</p>
+                    <input name="first_name" type="text" class="form-control" required>
+                </div>
+                <div class="samefield field mt-2">
+                    <p class="ms-1 my-0 mb-1">Sobrenome</p>
+                    <input name="last_name" type="text" class="form-control" required>
+                </div>
             </div>
-        </div>
-        <div style="display: flex; justify-content: space-between;" class="mx-4">
-    
-            <div class="samefield field mt-2">
-                <p class="ms-1 my-0 mb-1">Telefone</p>
-                <input type="text" class="form-control" placeholder="Digite algo">
+            <div style="display: flex; justify-content: space-between;" class="mx-4">
+
+                <div class="samefield field mt-2">
+                    <p class="ms-1 my-0 mb-1">Telefone</p>
+                    <input name="telefone" type="text" class="form-control" required>
+                </div>
+                <div class="samefield field mt-2">
+                    <p class="ms-1 my-0 mb-1">Tipo de Usuário</p>
+                    <select name="tipo" class="form-control" required>
+                        <option value="">Selecione o tipo</option>
+                        <option value="admin">Administrador</option>
+                        <option value="criador">Criador de Evento</option>
+                        <option value="normal">Usuário Normal</option>
+                    </select>
+                </div>
             </div>
-            <div class="samefield field mt-2">
-                <p class="ms-1 my-0 mb-1">Tipo de Usuário</p>
-                <input type="text" class="form-control" placeholder="Digite algo">
+            <div class="field mt-2  mx-4">
+                <p class="ms-1 my-0 mb-1">Senha</p>
+                <input name="senha" type="password" class="form-control" required>
             </div>
-        </div>
-        <div class="field mt-2  mx-4">
-            <p class="ms-1 my-0 mb-1">Senha</p>
-            <input type="text" class="form-control" placeholder="Digite algo">
-        </div>
-        <div class="field mt-2  mx-4">
-            <p class="ms-1 my-0 mb-1">Confirmação de Senha</p>
-            <input type="text" class="form-control" placeholder="Digite algo">
-        </div>
-        <button type="button" class="save-button btn  ms-4">Salvar</button>
+            <div class="field mt-2  mx-4">
+                <p class="ms-1 my-0 mb-1">Confirmação de Senha</p>
+                <input name="confirmacao_senha" type="password" class="form-control" required>
+            </div>
+            <button type="submit" class="save-button btn  ms-4">Salvar</button>
+        </form>
     </div>
 
 </div>

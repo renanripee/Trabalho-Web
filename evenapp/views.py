@@ -20,6 +20,32 @@ def login(request):
     return render(request, 'login.html')
 
 def createUser(request):
+    if request.method == 'POST':
+        email = request.POST.get('email')
+        first_name = request.POST.get('first_name')
+        last_name = request.POST.get('last_name')
+        telefone = request.POST.get('telefone')
+        tipo = request.POST.get('tipo')
+        senha = request.POST.get('senha')
+        confirmacao = request.POST.get('confirmacao_senha')
+
+        if senha != confirmacao:
+            return render(request, 'users/create-user.html', {'erro': 'As senhas não coincidem.'})
+
+        try:
+            Usuario.objects.create_user(
+                email=email,
+                password=senha,
+                first_name=first_name,
+                last_name=last_name,
+                telefone=telefone,
+                tipo=tipo
+            )
+            return redirect('home')
+        
+        except Exception as e:
+            return render(request, 'users/create-user.html', {'erro': str(e)})
+
     return render(request, 'users/create-user.html')
 
 @login_required
