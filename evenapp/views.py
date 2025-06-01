@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404 # type: ignore
-from .models import Evento, Usuario
+from .models import Evento, Usuario, Inscricao
 from django.contrib.auth.decorators import login_required #type: ignore
 from django.contrib.auth import authenticate, login as auth_login #type: ignore
 from django.contrib.auth import logout as django_logout #type: ignore
@@ -20,17 +20,56 @@ def user_type_required(*tipos_permitidos):
 
 
 def home(request):
-    eventos = Evento.objects.all()
-    return render(request, 'events/home.html', {'eventos': eventos})
+    events = Evento.objects.all()
+    return render(request, 'events/home.html', {
+        'eventos': events,
+        'myevents': False
+    })
 
+def myevents(request): 
+    events = Evento.objects.filter(organizador=request.user)
+    return render(request, 'events/home.html', {
+        'eventos': events,
+        'myevents': True
+    })
+
+def mysubscriptions(request):
+    subscriptions = Inscricao.objects.filter(usuario=request.user)
+    events = [subscription.evento for subscription in subscriptions ]
+    return render(request, 'events/home.html', {'eventos': events})
 
 def details(request, id):
-    evento = get_object_or_404(Evento, id=id)
-    return render(request, 'events/details.html', {'evento': evento})
-
+    evento = Evento.objects.get(id=id)
+    inscrito = False
+    if request.user.is_authenticated and request.user.tipo == 'normal':
+        inscrito = Inscricao.objects.filter(evento=evento, usuario=request.user).exists()
+    return render(request, 'events/details.html', {
+        'evento': evento,
+        'inscrito': inscrito,
+    })
 def subscribers(request):
     subscribers = Usuario.objects.all()
     return render(request, 'events/subscribers.html', {'subscribers': subscribers})
+
+def listSubscribers(request, id):
+    evento = get_object_or_404(Evento, pk=id)
+    subscriptions = Inscricao.objects.filter(evento=evento)
+    subscribers = [subscription.usuario for subscription in subscriptions]
+    return render(request, 'events/subscribers.html', {
+        'evento': evento,
+        'subscribers': subscribers
+    })
+
+def subscribe(request, id):
+    if request.method == 'POST' and request.user.is_authenticated and request.user.tipo == 'normal':
+        evento = get_object_or_404(Evento, pk=id)
+
+        if not Inscricao.objects.filter(usuario=request.user, evento=evento).exists():
+            Inscricao.objects.create(usuario=request.user, evento=evento)
+            messages.success(request, 'Inscrição realizada com sucesso!')
+        else:
+            messages.warning(request, 'Você já está inscrito neste evento.')
+    return redirect('details', id=id)
 
 def login_view(request):
     if request.user.is_authenticated:
@@ -152,7 +191,6 @@ def deleteEvent(request, id):
 
     if request.method == 'POST':
         evento.delete()
-        messages.success(request, "Evento deletado com sucesso.")
         return redirect('home')
 
     return redirect('details', id=id)

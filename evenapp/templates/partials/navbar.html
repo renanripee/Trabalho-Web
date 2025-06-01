@@ -17,6 +17,16 @@
                 <li class="nav-item">
                     <a class="nav-link ms-4" href="{% url 'home' %}">EVENTOS</a>
                 </li>
+                {% if user.is_authenticated and user.tipo == 'normal' %}
+                <li class="nav-item">
+                    <a class="nav-link ms-4" href="{% url 'mysubscriptions' %}">MINHAS INSCRIÇÕES</a>
+                </li>
+                {% endif %}
+                {% if user.is_authenticated and user.tipo == 'criador' %}
+                <li class="nav-item">
+                    <a class="nav-link ms-4" href="{% url 'myevents' %}">MEUS EVENTOS</a>
+                </li>
+                {% endif %}
                 <li class="nav-item">
                     <a class="nav-link ms-4" href="{% url 'editUser' %}">MEU PERFIL</a>
                 </li>

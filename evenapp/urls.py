@@ -5,6 +5,8 @@ urlpatterns = [
     path('', views.login_view, name='login'),
     path('logout', views.logout, name='logout'),
     path('home', views.home, name='home'),
+    path('my-subscriptions', views.mysubscriptions, name='mysubscriptions'),
+    path('my-events', views.myevents, name='myevents'),
     path('eventos/<int:id>/', views.details, name='details'),
     path('subscribers', views.subscribers, name='subscribers'),
     path('user/create', views.createUser, name='createUser'),
@@ -12,4 +14,8 @@ urlpatterns = [
     path('event/create', views.createEvent, name='createEvent'),
     path('event/<int:id>/edit', views.editEvent, name='editEvent'),
     path('event/<int:id>/delete', views.deleteEvent, name='deleteEvent'),
+    path('event/<int:id>/inscritos/', views.listSubscribers, name='listSubscribers'),
+    path('event/<int:id>/inscrever/', views.subscribe, name='subscribe'),
+
+
 ]

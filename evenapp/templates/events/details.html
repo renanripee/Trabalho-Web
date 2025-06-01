@@ -8,6 +8,23 @@
 
 {% block content %}
 
+{% if messages %}
+<div id="alert-container" class="position-fixed top-25 start-50 translate-middle z-3">
+    {% for message in messages %}
+    <div class="alert alert-{{ message.tags }} text-center" role="alert" style="font-family: 'Roboto Condensed';">
+        {{ message }}
+    </div>
+    {% endfor %}
+</div>
+<script>
+    setTimeout(() => {
+        const alert = document.getElementById('alert-container');
+        if (alert) {
+            alert.remove();
+        }
+    }, 3000);
+</script>
+{% endif %}
 
 <div class="container event-info">
     <div class="row">
@@ -17,14 +34,27 @@
                 <p class="event-date"><b>DATA:</b> {{evento.data}}</p>
                 <p class="event-local"><b>LOCAL:</b> {{evento.local}}</p>
                 <p>{{evento.descricao}}</p>
-                <button type="button" class="subscribe btn px-5 mt-3">Inscrever-se</button>
+                {% if user.tipo == 'normal' %}
+                {% if inscrito %}
+                <button class="subscribe btn btn-secondary px-5 mt-3" disabled>Inscrito</button>
+                {% else %}
+                <form method="POST" action="{% url 'subscribe' evento.id %}">
+                    {% csrf_token %}
+                    <button type="submit" class="subscribe btn px-5 mt-3">Inscrever-se</button>
+                </form>
+                {% endif %}
+
+                {% else %}
+                <a href="{% url 'listSubscribers' evento.id %}" type="submit" class="subscribe btn px-5 mt-3">Ver
+                    Inscrições</a>
+                {% endif %}
             </div>
         </div>
         <div class="col-5 image">
             <img src="{% static 'img/details.png' %}" alt="Imagem de evento">
         </div>
     </div>
-</div>
 
+</div>
 
 {% endblock %}

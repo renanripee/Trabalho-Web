@@ -31,10 +31,15 @@ h1.title {
     margin: 2rem 0 0 0;
 }
 
-button.subscribe {
+.subscribe {
     background-color: #E33E07;
     color: white;
     font-family: 'Roboto Condensed', sans-serif !important;
+}
+
+.subscribe:hover {
+    background-color: #b6350b;
+    color: white;
 }
 
 .image {

@@ -8,7 +8,7 @@
 
 {% block content %}
 <div class="home">
-    <h1 class="title pt-5">Eventos</h1>
+    <h1 class="title pt-5">{% if not myevents %} Eventos {% else %} Meus eventos {% endif %}</h1>
     <div class="events">
         {% for evento in eventos %}
         {% include 'events/event.html' %}
