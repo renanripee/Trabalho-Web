@@ -9,7 +9,8 @@
 {% block content %}
 
 {% if messages %}
-<div id="alert-container" class="position-fixed top-25 start-50 translate-middle z-3">
+<div id="alert-container" class="position-fixed translate-middle z-3"
+    style="font-family: 'Roboto Condensed'; top: 5%; right: -5%;">
     {% for message in messages %}
     <div class="alert alert-{{ message.tags }} text-center" role="alert" style="font-family: 'Roboto Condensed';">
         {{ message }}
@@ -17,12 +18,7 @@
     {% endfor %}
 </div>
 <script>
-    setTimeout(() => {
-        const alert = document.getElementById('alert-container');
-        if (alert) {
-            alert.remove();
-        }
-    }, 3000);
+
 </script>
 {% endif %}
 
