@@ -18,7 +18,12 @@
     {% endfor %}
 </div>
 <script>
-
+    setTimeout(() => {
+        const alert = document.getElementById('alert-container');
+        if (alert) {
+            alert.remove();
+        }
+    }, 3000);
 </script>
 {% endif %}
 
@@ -33,18 +38,29 @@
                 {% if user.is_authenticated %}
                 {% if user.tipo == 'normal' %}
                 {% if inscrito %}
-                <button class="subscribe btn btn-secondary px-5 mt-3" disabled>Inscrito</button>
+                {% if not past_date %}
+                <form method="POST" action="{% url 'cancelSubscribe' id=evento.id %}">
+                    {% csrf_token %}
+                    <button type="submit" class="subscribe btn btn-danger px-5 mt-3">Cancelar inscrição</button>
+                </form>
                 {% else %}
+                <button class="subscribe btn btn-secondary px-5 mt-3" disabled>Encerrado</button>
+                {% endif %}
+                {% else %}
+                {% if not past_date %}
                 <form method="POST" action="{% url 'subscribe' evento.id %}">
                     {% csrf_token %}
                     <button type="submit" class="subscribe btn px-5 mt-3">Inscrever-se</button>
                 </form>
-                {% endif %}
-
                 {% else %}
+                <button class="subscribe btn btn-secondary px-5 mt-3" disabled>Encerrado</button>
+                {% endif %}
+                {% endif %}
+                {% elif user == evento.organizador %}
                 <a href="{% url 'listSubscribers' evento.id %}" type="submit" class="subscribe btn px-5 mt-3">Ver
                     Inscrições</a>
                 {% endif %}
+
                 {% endif %}
             </div>
         </div>

@@ -7,6 +7,7 @@ from django.contrib import messages #type: ignore
 from datetime import datetime
 from django.http import HttpResponseForbidden #type: ignore
 from functools import wraps
+from datetime import date
 
 def user_type_required(*tipos_permitidos):
     def decorator(view_func):
@@ -17,56 +18,6 @@ def user_type_required(*tipos_permitidos):
             return HttpResponseForbidden("Acesso negado.")
         return wrapper
     return decorator
-
-
-def home(request):
-    events = Evento.objects.all()
-    return render(request, 'events/home.html', {
-        'eventos': events,
-        'tipo': 'Eventos'
-    })
-
-@user_type_required('criador', 'admin')
-def myevents(request): 
-    events = Evento.objects.filter(organizador=request.user)
-    return render(request, 'events/home.html', {
-        'eventos': events,
-        'tipo': 'Meus Eventos'
-    })
-
-@user_type_required('normal')
-def mysubscriptions(request):
-    subscriptions = Inscricao.objects.filter(usuario=request.user)
-    events = [subscription.evento for subscription in subscriptions ]
-    return render(request, 'events/home.html', {
-        'eventos': events,
-        'tipo': 'Minhas Inscrições'
-    })
-
-def details(request, id):
-    evento = Evento.objects.get(id=id)
-    inscrito = False
-    if request.user.is_authenticated and request.user.tipo == 'normal':
-        inscrito = Inscricao.objects.filter(evento=evento, usuario=request.user).exists()
-    return render(request, 'events/details.html', {
-        'evento': evento,
-        'inscrito': inscrito,
-    })
-
-@user_type_required('admin')
-def users(request):
-    subscribers = Usuario.objects.all()
-    return render(request, 'events/subscribers.html', {'subscribers': subscribers})
-
-@user_type_required('criador', 'admin')
-def listSubscribers(request, id):
-    evento = get_object_or_404(Evento, pk=id)
-    subscriptions = Inscricao.objects.filter(evento=evento)
-    subscribers = [subscription.usuario for subscription in subscriptions]
-    return render(request, 'events/subscribers.html', {
-        'evento': evento,
-        'subscribers': subscribers
-    })
 
 @user_type_required('normal')
 def subscribe(request, id):
@@ -79,6 +30,37 @@ def subscribe(request, id):
         else:
             messages.warning(request, 'Você já está inscrito neste evento.')
     return redirect('details', id=id)
+
+@user_type_required('normal')
+def cancelSubscribe(request, id):
+    evento = get_object_or_404(Evento, id=id)
+    inscricao = Inscricao.objects.filter(evento=evento, usuario=request.user).first()
+    if inscricao:
+        inscricao.delete()
+        messages.success(request, "Inscrição cancelada com sucesso.")
+    else:
+        messages.error(request, "Você não está inscrito neste evento.")
+    return redirect('details', id=id)
+
+
+@user_type_required('criador', 'admin')
+def listSubscribers(request, id):
+    evento = get_object_or_404(Evento, pk=id)
+    subscriptions = Inscricao.objects.filter(evento=evento)
+    subscribers = [subscription.usuario for subscription in subscriptions]
+    return render(request, 'events/subscribers.html', {
+        'evento': evento,
+        'subscribers': subscribers
+    })
+
+@user_type_required('normal')
+def mysubscriptions(request):
+    subscriptions = Inscricao.objects.filter(usuario=request.user)
+    events = [subscription.evento for subscription in subscriptions ]
+    return render(request, 'events/home.html', {
+        'eventos': events,
+        'tipo': 'Minhas Inscrições'
+    })
 
 def login_view(request):
     if request.user.is_authenticated:
@@ -101,6 +83,11 @@ def login_view(request):
 def logout(request):
     django_logout(request)
     return redirect('login')
+
+@user_type_required('admin')
+def users(request):
+    subscribers = Usuario.objects.all()
+    return render(request, 'events/subscribers.html', {'subscribers': subscribers})
 
 def createUser(request):
     if request.method == 'POST':
@@ -149,6 +136,33 @@ def editUser(request):
         'modo_edicao': True
     })
 
+def home(request):
+    events = Evento.objects.all()
+    return render(request, 'events/home.html', {
+        'eventos': events,
+        'tipo': 'Eventos'
+    })
+
+@user_type_required('criador', 'admin')
+def myevents(request): 
+    events = Evento.objects.filter(organizador=request.user)
+    return render(request, 'events/home.html', {
+        'eventos': events,
+        'tipo': 'Meus Eventos'
+    })
+
+def details(request, id):
+    evento = Evento.objects.get(id=id)
+    inscrito = False
+    past_date = evento.data.date() < date.today()
+
+    if request.user.is_authenticated and request.user.tipo == 'normal':
+        inscrito = Inscricao.objects.filter(evento=evento, usuario=request.user).exists()
+    return render(request, 'events/details.html', {
+        'evento': evento,
+        'inscrito': inscrito,
+        'past_date': past_date,
+    })
 
 @user_type_required('criador', 'admin')
 def createEvent(request):
